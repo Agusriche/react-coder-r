@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import{auth, db} from '../FirebaseConfigs/firebaseConfig'
 import { addDoc, collection } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
-
+import './Singup.css'
 
 const Singup = () => {
   
@@ -30,7 +30,7 @@ const Singup = () => {
 
       addDoc(collection(db,"users"),{
         username: username, email: email, phonenumber: phonenumber, password: password, cart: initialcartvalue, address:address,uid: user.uid
-      }) .then(()=>{
+        }) .then(()=>{
         setSuccessMsg('Nuevo usuario creado, seras redireccionado a la pantalla de inicio :)')
         setUserName('')
         setPhoneNumber('')
@@ -41,7 +41,17 @@ const Singup = () => {
           setSuccessMsg('');
           navigate('/login');
         },4000);
-      })
+
+       })
+       .catch((error)=>{setErrorMsg(error.message)});
+    })
+    .catch ((error)=>{
+      if(error.message == 'Firebase: Error (auth/invalid-email).'){
+        setErrorMsg('Por favor llene todos los campos requeridos')
+      }
+      if (error.message == 'Firebase: Error (auth/email-already-in-use).'){
+        setErrorMsg('User already exist');
+      }
     })
   
   }
@@ -57,6 +67,16 @@ const Singup = () => {
           <form className='singup-form' onSubmit={handlerSubmit}>
             <p> Crear cuenta</p>
 
+
+            {successMsg&&<>
+            <div className='success-msg'> {successMsg}
+            </div></>
+            }
+            {errorMsg&& <>
+            <div className='error-msg'>
+              {errorMsg}
+              </div></>
+              }
             <label>Nombre</label>
             <input onChange={(e)=>setUserName(e.target.value)} type='text' placeholder='nombre completo'/>
             <label>Numero</label>
