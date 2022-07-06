@@ -14,7 +14,7 @@ const Navbar = () => {
     <Link to="/Cart">
       <div className='cart-btn'>
         <img src={carrito} alt="no funca"/>
-        <span className='cart-icon.css'> 0 </span>
+        <span className='cart-icon-css'> 0 </span>
       </div>
     </Link> 
       

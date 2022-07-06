@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Singup from './Components/Singup';
 import PgFOF from './Components/PgFOF';
 import Cart from './Components/Cart';
+import Profile from './Components/Profile';
 
 
 
@@ -19,6 +20,8 @@ import Cart from './Components/Cart';
         <Route exact path="/singup" element={<Singup />}/>
         <Route exact path="/login" element={<Login />}/>
         <Route exact path='/cart' element={<Cart />}/>
+        <Route exact path='/userprofile' element={<Profile />}/>
+        
         <Route path="*" element={<PgFOF/>}/>
               
       

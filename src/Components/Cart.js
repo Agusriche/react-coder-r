@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const Cart = () => {
   return (
-    <div>Tu carrito esta vacio :o</div>
+    <div>
+       <Navbar/>
+       <p>Carrito vacio!</p>
+       
+    </div>
   )
 }
 
