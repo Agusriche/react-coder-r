@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import{auth, db} from '../FirebaseConfigs/firebaseConfig'
-import { collection } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -22,6 +22,28 @@ const Singup = () => {
 
   const handlerSubmit = (e)=>{
     e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential)=>{
+      const user = userCredential.user;
+      const initialcartvalue = 0;
+      console.log(user);
+
+      addDoc(collection(db,"users"),{
+        username: username, email: email, phonenumber: phonenumber, password: password, cart: initialcartvalue, address:address,uid: user.uid
+      }) .then(()=>{
+        setSuccessMsg('Nuevo usuario creado, seras redireccionado a la pantalla de inicio :)')
+        setUserName('')
+        setPhoneNumber('')
+        setEmail('')
+        setPassword('')
+        setErrorMsg('')
+        setTimeout(()=>{
+          setSuccessMsg('');
+          navigate('/login');
+        },4000);
+      })
+    })
+  
   }
   
   return (
