@@ -89,7 +89,7 @@ const Singup = () => {
             <input onChange={(e)=>setAddress(e.target.value)} type='text' placeholder='Direccion'/>
 
 
-            <button>Sing up!</button>
+            <button type='submit'>Sing up!</button>
 
             <div>
               <span>
