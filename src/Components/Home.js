@@ -11,26 +11,27 @@ const Home = () => {
     const [user, setUser ] = useState('')
     const usersCollectionRef = collection(db, "users")
     useEffect(()=>{
-      auth.onAuthStateChanged(userlogged=>{
-        if(userlogged){
-          const getUsers = async () => {
-            const q =query(collection(db,"users"), where("uuid","==",userlogged.uid))
-            // console.log(q)
-            const data = await getDocs(q)
-            setUser(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
+        auth.onAuthStateChanged(userlogged=>{
+          if(userlogged){
+            const getUsers = async () => {
+              const q =query(collection(db,"users"), where("uuid","==",userlogged.uid))
+              // console.log(q)
+              const data = await getDocs(q)
+              setUser(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
+            }
+            getUsers();
           }
-          getUsers();
-        }
-        else{
-          setUser(null)
-        }
-      })
-    },[ ])
-    return user
-  }
+          else{
+            setUser(null)
+          }
+        })
+      },[ ])
+      return user
+    }
 
   
-  const loggeduser = GetCurrentUser 
+  const loggeduser = GetCurrentUser ();
+  if(loggeduser){console.log(loggeduser [0].email)}
 
   return (
     <div>
